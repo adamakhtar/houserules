@@ -4,7 +4,7 @@ module Houserules
     end
 
     def call(description)
-      matches = description.match /(?<resource>.*?)when(?<action>.*?)(?<permission>permits|denies)(?<actor>.+)/
+      matches = description.match /\A(?<resource>.*?)when(?<action>.*?)(?<permission>permits|denies)(?<actor>.+?)(?<note>\(.*?\))?\Z/
       resource = matches[:resource].strip
       resource = resource.gsub(/[:-]/, "").strip
       actor = matches[:actor].strip
@@ -12,12 +12,14 @@ module Houserules
       action = action.gsub(/ it\Z/, "")
       permission = matches[:permission].strip
       permitted = permission == 'permits' ? true : false
+      note = matches[:note] ? matches[:note].gsub(/[()]/, "") : ''
 
       {
         resource: resource,
         actor: actor,
         action: action,
-        permitted: permitted
+        permitted: permitted,
+        note: note
       }
     end
   end
