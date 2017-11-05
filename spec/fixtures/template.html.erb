@@ -1,0 +1,25 @@
+<% @rules.each_pair do |policy, actions_and_footnotes| %>
+  <% actions = actions_and_footnotes["actions"] %>
+  <h2><%= policy %></h2>
+
+  <table>
+    <thead>
+      <th>Action</th>
+      <% actions.first.last.each_pair do |user, permission| %>
+        <th><%= user %></th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% actions.each_pair do |action, users| %>
+        <tr>
+          <td><%= action %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+
+
+
+

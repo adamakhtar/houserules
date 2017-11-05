@@ -4,9 +4,12 @@ module Houserules
       @rules = rules_table
     end
 
-    def call(template_path)
-      template = File.read( Rails.root.join(template_path)
-      html = ERB.new(template).result(binding)
+    def call(template_path: nil, template_html: nil)
+      if template_path
+        template_html = File.read(template_path)
+      end
+
+      html = ERB.new(template_html).result(binding)
     end
   end
 end
