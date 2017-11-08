@@ -29,7 +29,7 @@ DEPENDENCIES
   bundler (~> 1.16)
   houserules!
   rake (~> 10.0)
-  rspec (~> 3.0)
+  rspec (>= 3.0, < 4.0)
 
 BUNDLED WITH
    1.16.0
