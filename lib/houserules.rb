@@ -2,6 +2,7 @@ require "houserules/version"
 require "houserules/rules_builder"
 require "houserules/rules_parser"
 require "houserules/html_renderer"
+require "rspec/core"
 
 class Houserules
 
@@ -26,5 +27,15 @@ class Houserules
 
   def self.clear
     self.rules = []
+  end
+end
+
+RSpec.configure do |config|
+  config.around(:example) do |example|
+    if example.metadata.fetch(:rule, false)
+      Houserules.parse(example.metadata[:full_description])
+    end
+
+    example.run
   end
 end
