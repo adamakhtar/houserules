@@ -1,4 +1,4 @@
-module Houserules
+class Houserules
   class HtmlRenderer
     def initialize(rules_table)
       @rules = rules_table

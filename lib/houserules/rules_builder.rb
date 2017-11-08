@@ -1,4 +1,4 @@
-module Houserules
+class Houserules
   class RulesBuilder
     def initialize(rules)
       @rules = rules

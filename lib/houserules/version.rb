@@ -1,3 +1,3 @@
-module Houserules
+class Houserules
   VERSION = "0.1.0"
 end

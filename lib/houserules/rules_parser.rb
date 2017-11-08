@@ -1,4 +1,4 @@
-module Houserules
+class Houserules
   class RulesParser
     def initialize
     end
