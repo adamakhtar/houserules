@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+<div class="avenir" style=" background-color: #f7f7f7;">
+  <div class="mw7 center mid-gray">
+    <% @rules.each_pair do |policy, actions_and_footnotes| %>
+      <% actions = actions_and_footnotes["actions"] %>
+      <% footnotes = actions_and_footnotes["footnotes"] %>
+      <h2><%= policy %></h2>
+      <div class="ba b--black-10 bg-white br1 mb3" style="box-shadow: 0px 2px 4px  2px rgba(55, 56, 58, 0.055);">
+        <table class="f6 w-100 mw8 center" cellspacing="0">
+          <thead class="lh-copy">
+            <th class="pl3 tracked moon-gray ttu fw5 bb b--black-05 tl pt3 pb3 pr3"  >action</th>
+            <% actions.first.last.each_pair do |user, permission| %>
+              <th class="fw5 tracked moon-gray ttu bb b--black-05 tl pt3 pb3" ><%= user %></th>
+            <% end %>
+          </thead>
+          <tbody class="lh-copy f6">
+            <% actions.each_pair do |action, users| %>
+              <tr class="">
+                <td class="pl3 pv3 pr3 bb b--black-05"><%= action %></td>
+                <% users.each_pair do |user, permission_details| %>
+                  <td class="pv3 pr3 bb b--black-05 f4 lh-solid">
+                    <%= permission_details['permitted'] == true ? "✅" : "⛔" %>
+                    <% if permission_details['note'].present? %>
+                      <span class="f7 gray"><%= permission_details['note_number'] %></span>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if footnotes.any? %>
+        <aside>
+          <ul class="list pl0 mt0">
+            <% footnotes.each_pair do |footnote_number, note| %>
+              <li class="lh-copy f7 mb1 light-silver"><%= footnote_number %>: <%= note %></li>
+            <% end %>
+          </ul>
+        </aside>
+      <% end %>
+    <% end %>
+  </div>
+</div>
