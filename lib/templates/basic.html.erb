@@ -1,0 +1,41 @@
+<% @rules.each_pair do |policy, actions_and_footnotes| %>
+  <% actions = actions_and_footnotes["actions"] %>
+  <% footnotes = actions_and_footnotes["footnotes"] %>
+  <h2><%= policy %></h2>
+
+  <table>
+    <thead>
+      <th>Action</th>
+      <% actions.first.last.each_pair do |user, permission| %>
+        <th><%= user %></th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% actions.each_pair do |action, users| %>
+        <tr>
+          <td><%= action %></td>
+          <% users.each_pair do |user, permission_details| %>
+            <td>
+              <%= permission_details[:permitted] == true ? "✅" : "⛔" %>
+              <% if permission_details[:note].present? %>
+                <span><%= permission_details[:note_number] %>: <%= permission_details[:note] %></span>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% if footnotes.any? %>
+    <ul>
+      <% footnotes.each_pair do |footnote_number, note| %>
+      <li><%= footnote_number %>: <%= note %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+
+
+
+
