@@ -4,5 +4,27 @@ require "houserules/rules_parser"
 require "houserules/html_renderer"
 
 class Houserules
-  # Your code goes here...
+
+  class << self
+    attr_accessor :rules
+  end
+
+  @rules = []
+
+  def self.parse(rule_description)
+    parser = RulesParser.new
+    rule = parser.call(rule_description)
+    self.rules << rule
+  end
+
+  def self.render(template_path)
+    builder = RulesBuilder.new(self.rules)
+    rules_table = builder.call
+    renderer = HtmlRenderer.new(rules_table)
+    html = renderer.call(template_path: template_path)
+  end
+
+  def self.clear
+    self.rules = []
+  end
 end
