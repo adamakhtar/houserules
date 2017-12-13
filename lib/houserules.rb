@@ -32,7 +32,7 @@ end
 
 RSpec.configure do |config|
   config.around(:example) do |example|
-    if example.metadata.fetch(:rule, false)
+    if example.metadata.fetch(:houserule, false)
       Houserules.parse(example.metadata[:full_description])
     end
 
